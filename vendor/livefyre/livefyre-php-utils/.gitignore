@@ -1,0 +1,6 @@
+*.lock
+*.phar
+vendor
+data
+.project*
+test.ini

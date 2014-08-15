@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Engage + Livefyre Sample App</title>
+<!-- This app expects its URL to be "engage.livefyre.com" -->
+<style>
+#janrainEngageEmbed {
+	display:none;
+}
+</style>
+<script type="text/javascript">
+// The below is directly from Janrain; only the tokenUrl param has been changed
+(function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = 'http://engage.livefyre.com/rpx-token-url.php';
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/test-livefyre/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/test-livefyre/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+})();
+</script>
+</head>
+<body>
+<div id="janrainEngageEmbed"></div>
+
+<script src="http://zor.t402.fyre.co/wjs/v3.0/javascripts/livefyre.js"></script>
+<div id="livefyre-app-custom-1408119173118"></div>
+<!-- Scripts -->
+<script>
+// Some cookie helper functions to deal with login and logout
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function readCookie(name) {
+    var nameEQ = escape(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return unescape(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    setCookie(name, "", -1);
+}
+
+// Create a Livefyre authDelegate. @see http://answers.livefyre.com/developers/user-auth/remote-profiles/
+var authDelegate = new fyre.conv.RemoteAuthDelegate();
+
+authDelegate.login = function(delegate) {
+	// very simple way to show the Janrain widget. Only Facebook has been configured so far.
+	document.getElementById('janrainEngageEmbed').style.display = "block";
+	
+    // Code for your system that performs logging in. Calls 
+    // delegate.success() on a successful login and delegate.failure()
+    // on a failed login attempt.
+    if (login.isSuccessful) {
+        // Tells the app that the user has been signed in and 
+        // will post a comment on their behalf if they tried 
+        // to post without logging in first.
+        delegate.success();
+    }
+    else {
+        // Will fail the login on the app.
+        delegate.failure(); 
+    }
+}
+
+authDelegate.logout = function(delegate) {
+   eraseCookie('lfLogin');
+   fyre.conv.logout();
+}
+
+authDelegate.editProfile = function(delegate, author) {
+    // Code to link to the current user's profile. Usually a link 
+    // to your profile page. author will be an object containing 
+    // data related to the current profile.
+}
+
+authDelegate.viewProfile = function(delegate, author) {
+    // Code to link to user profiles other than the currently
+    // logged in user. author will be an object containing data
+    // related to the profile of the selected user.
+}
+
+(function() {
+    fyre.conv.load({
+        network: 'demo-accounts-int-0.fyre.co',
+        authDelegate: authDelegate
+    }, [{
+        app: 'main',
+        siteId: '305076',
+        articleId: 'custom-1408119173118',
+        el: 'livefyre-app-custom-1408119173118',
+        checksum: 'fc8419a6d04be93d573363d886306e47',
+        collectionMeta: 'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJ1cmwiOiAiaHR0cDovL2NsaWVudC1zb2x1dGlvbnMubGl2ZWZ5cmUuY29tLyIsICJ0YWdzIjogW10sICJhcnRpY2xlSWQiOiAiY3VzdG9tLTE0MDgxMTkxNzMxMTgiLCAidGl0bGUiOiAiVGVzdCJ9.LnqHqc5wJuF2pmloyarIj1Bi981voXHLM5bKI_1eqxI'
+    }], function (widget) {
+
+    	if (readCookie('lfLogin')) {
+    		fyre.conv.login(readCookie('lfLogin'));
+    	}
+    });
+}());
+</script>
+</body>
+</html>

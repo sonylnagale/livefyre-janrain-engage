@@ -1,0 +1,28 @@
+{
+    "name": "livefyre/livefyre-php-utils",
+    "type": "library",
+    "version": "1.3.2",
+    "description": "Livefyre PHP utility classes",
+    "keywords": ["livefyre","api"],
+    "homepage": "http://github.com/livefyre/livefyre-php-utils",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Livefyre",
+            "email": "tools@livefyre.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "rmccue/requests": ">=1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.14",
+        "phpdocumentor/phpdocumentor": "2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Livefyre\\": "src/"
+        }
+    }
+}

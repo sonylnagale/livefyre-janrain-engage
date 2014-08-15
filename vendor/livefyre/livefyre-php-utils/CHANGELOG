@@ -1,0 +1,55 @@
+=== 1.3.2 2014-08-11
+
+* Added SSL toggle to all API calls.
+
+=== 1.3.0 2014-07-30
+
+*** CAUTION: THIS VERSION HAS UPDATED METHODS THAT MAKE PREVIOUS FUNCTION CALLS OBSOLETE ***
+* Added timeline support.
+* Added createCollection method.
+* Updated createCollectionMeta() to take in optional param in an array.
+* Added support for making calls using the WP client.
+* Updated checksum formula.
+* Refactored core objects.
+* Updated majority of API calls to use SSL.
+
+=== 1.2.0 2014-06-12
+
+* Added personalized stream API support.
+* Reorganized the library structure for consistency between different languages.
+
+=== 1.1.8 2014-06-11
+
+* Used IDNA class to encode UTF-8 characters so that dependency on ext-intl is no longer required.
+
+=== 1.1.7 2014-06-10
+
+* Copied JWT over so that minimum-stability-dev is not required.
+
+=== 1.1.5 2014-05-13
+
+* Bug fix for setUserSyncUrl.
+
+=== 1.1.4 2014-05-07
+
+* Added rating, counting as acceptable types.
+* Removed stream_type.
+
+=== 1.1.3 2014-04-23
+
+* Renaming stream to type.
+* Added checks to make sure that type is of a recognized type.
+* Added legacy stream_type support.
+
+=== 1.1.2 2014-04-10
+
+* Fixed validateLivefyreToken.
+* Adjusted collectionMetaToken to allow IDNs.
+
+=== 1.1.1 2014-04-08
+
+* Moved build checksum into its own method.
+
+=== 1.0.0 2014-04-07
+
+* Initial commit.
